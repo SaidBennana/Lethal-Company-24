@@ -7,6 +7,8 @@ public class Movmant : MonoBehaviour
     [SerializeField] float JumpHight = 3;
     [SerializeField] Transform GFX;
     [SerializeField] bool isGrounded;
+    [SerializeField] Animator anim;
+    [SerializeField] FixedJoystick fixedJoystick;
 
     // garvity
     private float Gravoty = -9.81f;
@@ -15,8 +17,9 @@ public class Movmant : MonoBehaviour
 
     private float InputX, InputY;
 
-    private void Start() {
-        controlPlayer=GetComponent<CharacterController>();
+    private void Start()
+    {
+        controlPlayer = GetComponent<CharacterController>();
     }
 
 
@@ -36,7 +39,11 @@ public class Movmant : MonoBehaviour
         InputX = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
         InputY = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
 
+        InputX = fixedJoystick.Horizontal * Speed * Time.deltaTime;
+        InputY = fixedJoystick.Vertical * Speed * Time.deltaTime;
+
         Vector3 Dir = new Vector3(InputX, 0, InputY);
+        anim.SetFloat("run", Dir.magnitude);
 
         /// Calculates the angle to rotate the character graphic towards based on horizontal and vertical input direction.
         /// Uses Mathf.Atan2 to get the angle in radians between the input direction and forward vector.
@@ -64,4 +71,7 @@ public class Movmant : MonoBehaviour
         velocity.y += Gravoty * Time.deltaTime;
         controlPlayer.Move(velocity * Time.deltaTime);
     }
+
+
+
 }
