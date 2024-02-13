@@ -9,6 +9,7 @@ public class Player_Game : MonoBehaviour
 {
 
     // Props manager
+    [SerializeField] int MonyFromProps;
     [SerializeField] List<Transform> Props;// props I get
     // Set Props 
     private Transform PointToSet;
@@ -29,6 +30,11 @@ public class Player_Game : MonoBehaviour
                 prop.DOScale(0, 0.4f);
                 prop.DOMove(PointToSet.position, 0.4f).OnComplete(() =>
                 {
+                    if (prop.TryGetComponent(out propCall propCall))
+                    {
+                        MonyFromProps += propCall.price;
+                        UI_Game.Instance.SetMony(MonyFromProps);
+                    }
                     DOTween.Kill(prop);
                     Transform IndexProp = prop;
                     Props.Remove(prop);
