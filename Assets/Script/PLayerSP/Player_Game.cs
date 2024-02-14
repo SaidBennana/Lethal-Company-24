@@ -34,6 +34,11 @@ public class Player_Game : MonoBehaviour
                     {
                         MonyFromProps += propCall.price;
                         UI_Game.Instance.SetMony(MonyFromProps);
+                        if (UI_Game.Instance.BoosMony <= MonyFromProps)
+                        {
+                            // you win
+                            UI_Game.Instance.win();
+                        }
                     }
                     DOTween.Kill(prop);
                     Transform IndexProp = prop;
