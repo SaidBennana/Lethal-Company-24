@@ -14,6 +14,10 @@ public class UI_Game : MonoBehaviour
     VisualElement root;
     // Start is called before the first frame update
 
+
+    // Colcolation Days
+    [SerializeField] int AllDays = 3;
+
     private void Awake()
     {
         Instance = this;
@@ -24,10 +28,14 @@ public class UI_Game : MonoBehaviour
         root.Q<Button>("Start_Game").clicked += () =>
         {
             print("Start Game");
-            root.Q<Button>("Start_Game").style.visibility = Visibility.Hidden;
+
+            root.Q<VisualElement>("bg").style.visibility = Visibility.Hidden;
+
             root.Q<VisualElement>("DayTimer").style.visibility = Visibility.Visible;
             ControllePlayer.SetActive(true);
+            StartCoroutine(Colcolation());
         };
+        SetDay(AllDays);
 
     }
 
@@ -45,6 +53,26 @@ public class UI_Game : MonoBehaviour
             TextCountaty.style.color = Color.green;
         }
     }
+
+    public void SetDay(int value)
+    {
+        if (value < 0)
+        {
+            Debug.Log("Game Done");
+        }
+        root.Q<Label>("Days").text = $"Day {value}";
+    }
+
+    IEnumerator Colcolation()
+    {
+        while (true && AllDays >= 0)
+        {
+            yield return new WaitForSeconds(30);
+            AllDays -= 1;
+            SetDay(AllDays);
+        }
+    }
+
 
 
 }

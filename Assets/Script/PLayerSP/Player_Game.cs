@@ -43,6 +43,9 @@ public class Player_Game : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
 
             }
+            StopCoroutine(ChackPropsInScnce());
+            StartCoroutine(ChackPropsInScnce());
+
         }
     }
 
@@ -68,7 +71,23 @@ public class Player_Game : MonoBehaviour
                 PointToSet = other.transform;
                 StartCoroutine(SetProps());
             }
+        }
+    }
+    IEnumerator ChackPropsInScnce()
+    {
+        Debug.Log("ChackPropsInScnce 1");
+        propCall[] propCall = FindObjectsOfType<propCall>();
+        yield return new WaitForSeconds(6);
+        if (propCall.Length <= 0)
+        {
+            Debug.Log("ChackPropsInScnce 2");
+            spwinPlatform[] _spwinPlatform = FindObjectsOfType<spwinPlatform>();
+            foreach (var item in _spwinPlatform)
+            {
+                item.SetProps();
 
+            }
         }
     }
 }
+

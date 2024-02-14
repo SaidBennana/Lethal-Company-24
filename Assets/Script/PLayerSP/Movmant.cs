@@ -36,9 +36,6 @@ public class Movmant : MonoBehaviour
         /// Gets the horizontal and vertical input from the input manager multiplied 
         /// by the speed and delta time. This allows scaling movement speed and handling 
         /// time correctly.
-        InputX = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
-        InputY = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
-
         InputX = fixedJoystick.Horizontal * Speed * Time.deltaTime;
         InputY = fixedJoystick.Vertical * Speed * Time.deltaTime;
 

@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903659124}
-  m_LocalRotation: {x: 0.4946683, y: 0.000000021147802, z: -0.00000001203701, w: 0.86908185}
+  m_LocalRotation: {x: 0.4946683, y: -0.000000021147798, z: 0.000000012037009, w: 0.86908185}
   m_LocalPosition: {x: 0, y: 29.3, z: -17.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2079727766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -891,6 +891,7 @@ GameObject:
   - component: {fileID: 193446323}
   - component: {fileID: 1736857808}
   - component: {fileID: 9120574690060125487}
+  - component: {fileID: 6421326494709213521}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -927,13 +928,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 2.24
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 47.8
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!114 &4714333592261973490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,6 +966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f4262442df3f1489f916b50628ca75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MonyFromProps: 0
   Props: []
 --- !u!95 &193446323
 Animator:
@@ -1014,9 +1016,40 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2.2939534
+  m_Height: 2.210731
   m_Direction: 1
-  m_Center: {x: 0, y: 0.27, z: 0}
+  m_Center: {x: 0, y: 0.16100359, z: 0}
+--- !u!114 &6421326494709213521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4714333592261973496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f68d8f055b44adb43b7eee7d265f7cfd,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &4714333593205359281
 GameObject:
   m_ObjectHideFlags: 0

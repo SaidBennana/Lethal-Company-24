@@ -440,7 +440,6 @@ MonoBehaviour:
   - {fileID: 1745676595}
   - {fileID: 540149999}
   - {fileID: 1376025738}
-  popes: []
 --- !u!1001 &515171328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -478,7 +477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4411305546473658, guid: d3f65bf385a3c3847ab550b32f3e53e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.19000006
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 4411305546473658, guid: d3f65bf385a3c3847ab550b32f3e53e8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -610,7 +609,7 @@ PrefabInstance:
     - target: {fileID: 2622349306769996744, guid: b6c364b8809174b4a86ee0dfc2dafad3,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 57
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2622349306769996744, guid: b6c364b8809174b4a86ee0dfc2dafad3,
         type: 3}
@@ -752,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4411305546473658, guid: d3f65bf385a3c3847ab550b32f3e53e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.19000006
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 4411305546473658, guid: d3f65bf385a3c3847ab550b32f3e53e8, type: 3}
       propertyPath: m_LocalPosition.z

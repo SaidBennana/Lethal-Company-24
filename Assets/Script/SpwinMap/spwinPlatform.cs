@@ -19,14 +19,19 @@ public class spwinPlatform : MonoBehaviour
     //4=> left
     void Start()
     {
-
-        Spwin();
+        Invoke("Spwin", 0.4f);
+        // Spwin();
         popes = SpwinManager.instance.props;
 
         /// Instantiates a random prop prefab at each point in the Points array. 
         /// The prop prefab is selected randomly from the popes array.
         /// The instantiated prop is scaled to 2x default size.
         /// This populates the map with random props at the predefined points.
+        SetProps();
+    }
+
+    public void SetProps()
+    {
         for (int i = 0; i < Points.Length; i++)
         {
             Transform ff = Instantiate(popes[Random.Range(0, popes.Length)], Points[i].position, Quaternion.identity);
