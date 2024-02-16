@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using System.Linq;
+using As_Star;
 
 
 public class Player_Game : MonoBehaviour
@@ -30,6 +31,7 @@ public class Player_Game : MonoBehaviour
                 prop.DOScale(0, 0.4f);
                 prop.DOMove(PointToSet.position, 0.4f).OnComplete(() =>
                 {
+                    SoundManager.instance.PlayeWithIndex(2);
                     if (prop.TryGetComponent(out propCall propCall))
                     {
                         MonyFromProps += propCall.price;
@@ -68,6 +70,7 @@ public class Player_Game : MonoBehaviour
             }
             Props.Add(other.transform);
             other.gameObject.SetActive(false);
+            SoundManager.instance.PlayeWithIndex(1);
         }
         else if (other.CompareTag("setProps"))
         {

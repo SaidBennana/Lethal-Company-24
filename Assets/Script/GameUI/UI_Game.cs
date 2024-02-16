@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using As_Star;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -44,7 +44,7 @@ public class UI_Game : MonoBehaviour
 
         Start_Game.clicked += () =>
          {
-             print("Start Game");
+             SoundManager.instance.PlayeWithIndex(0);
 
              root.Q<VisualElement>("StartGame").style.display = DisplayStyle.None;
              root.Q<VisualElement>("GamePage").style.display = DisplayStyle.Flex;
@@ -106,6 +106,7 @@ public class UI_Game : MonoBehaviour
 
         root.Q<Button>("Next").clicked += () =>
         {
+            SoundManager.instance.PlayeWithIndex(0);
             // WinPage.style.display = DisplayStyle.None;
             // root.Q<VisualElement>("StartGame").style.display = DisplayStyle.Flex;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
