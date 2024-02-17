@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,9 +17,11 @@ public class SoundEditor : EditorWindow
     public static void openWindow()
     {
         win = GetWindow<SoundEditor>(typeof(SoundEditor));
-        win.maxSize=new Vector2(500,600);
-        win.minSize=new Vector2(500,600);
+        win.maxSize = new Vector2(500, 600);
+        win.minSize = new Vector2(500, 600);
         win.Show();
+
+
 
         //soundObject = (SoundObject)AssetDatabase.LoadAssetAtPath("Assets/Script/Sound Manager/SoundData.asset", typeof(SoundObject));
 
@@ -78,9 +77,18 @@ public class SoundEditor : EditorWindow
                 EditorGUILayout.Space(5);
                 soud.volume = EditorGUILayout.Slider("volume", soud.volume, 0, 1);
                 EditorGUILayout.Space(4);
-                if (GUILayout.Button("Remove"))
+
+                GUIStyle yellowBackgroundStyle = new GUIStyle(GUI.skin.button);
+
+                yellowBackgroundStyle.normal.background = MakeBackgroundTexture(10, 10, Color.red);
+
+                if (GUILayout.Button(new GUIContent("Remove"), yellowBackgroundStyle))
                 {
-                    _ListSounds.Remove(soud);
+                    if (EditorUtility.DisplayDialog("Erorr", "Are you sure you want remove this", "OK", "Cancel"))
+                    {
+
+                        _ListSounds.Remove(soud);
+                    }
                 }
 
                 EditorGUILayout.Space(10);
@@ -91,14 +99,42 @@ public class SoundEditor : EditorWindow
             }
             EditorGUILayout.Space(10);
 
-            if (GUILayout.Button("Add"))
-            {
-                Sound sound = new Sound();
-                _ListSounds.Add(sound);
-            }
             EditorGUILayout.EndVertical();
         }
+        if (GUILayout.Button("Add"))
+        {
+            Sound sound = new Sound();
+            _ListSounds.Add(sound);
+        }
+        if (GUILayout.Button("Save", GUILayout.Height(70)))
+        {
+            Debug.Log("Save");
+            soundObject.Sounds = _ListSounds;
+        }
         Repaint();
+    }
+
+    private Texture2D MakeBackgroundTexture(int width, int height, Color color)
+    {
+        Color[] pixels = new Color[width * height];
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = color;
+        }
+
+        Texture2D backgroundTexture = new Texture2D(width, height);
+
+        backgroundTexture.SetPixels(pixels);
+        backgroundTexture.Apply();
+
+        return backgroundTexture;
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("Save");
+        soundObject.Sounds = _ListSounds;
     }
 
 

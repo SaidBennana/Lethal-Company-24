@@ -1,3 +1,4 @@
+using As_Star;
 using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Movmant : MonoBehaviour
@@ -60,6 +61,8 @@ public class Movmant : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(JumpHight * -2 * Gravoty);
         }
+        anim.SetBool("Is_Ground", isGrounded);
+
         /// Applies gravity to the character's vertical velocity over time.
         /// Moves the character controller by the current velocity multiplied by delta time.
         /// This allows physics forces like gravity to accumulate into velocity over frames,
@@ -67,6 +70,15 @@ public class Movmant : MonoBehaviour
 
         velocity.y += Gravoty * Time.deltaTime;
         controlPlayer.Move(velocity * Time.deltaTime);
+    }
+
+    public void FootStepEvent()
+    {
+        if (isGrounded)
+        {
+            SoundManager.instance.PlayeWithIndex(3);
+
+        }
     }
 
 

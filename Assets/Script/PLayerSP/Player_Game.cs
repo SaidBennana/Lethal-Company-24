@@ -4,6 +4,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Linq;
 using As_Star;
+using Unity.VisualScripting;
 
 
 public class Player_Game : MonoBehaviour
@@ -31,20 +32,25 @@ public class Player_Game : MonoBehaviour
                 prop.DOScale(0, 0.4f);
                 prop.DOMove(PointToSet.position, 0.4f).OnComplete(() =>
                 {
-                    SoundManager.instance.PlayeWithIndex(2);
+                    if (GameManager.instance.is_Play)
+                        SoundManager.instance.PlayeWithIndex(2);
+                    DOTween.Kill(prop);
+                    Transform IndexProp = prop;
+                    Props.Remove(prop);
+
                     if (prop.TryGetComponent(out propCall propCall))
                     {
                         MonyFromProps += propCall.price;
                         UI_Game.Instance.SetMony(MonyFromProps);
-                        if (UI_Game.Instance.BoosMony <= MonyFromProps)
-                        {
-                            // you win
-                            UI_Game.Instance.win();
-                        }
+                        if (Props.Count <= 0)
+                            if (UI_Game.Instance.BoosMony <= MonyFromProps)
+                            {
+                                // you win
+                                if (GameManager.instance.is_Play)
+                                    UI_Game.Instance.win();
+                                GameManager.instance.is_Play = false;
+                            }
                     }
-                    DOTween.Kill(prop);
-                    Transform IndexProp = prop;
-                    Props.Remove(prop);
                     Destroy(IndexProp.gameObject);
                 });
                 yield return new WaitForSeconds(0.5f);

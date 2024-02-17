@@ -1,5 +1,6 @@
 using System.Collections;
 using As_Star;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -12,20 +13,28 @@ public class UI_Game : MonoBehaviour
     // Player
     [SerializeField] GameObject ControllePlayer;
 
+
+    #region varibalsUI
     VisualElement root;
-    // Start is called before the first frame update
-
-
-    // Colcolation Days
-    [SerializeField] int AllDays = 3;
-    public int BoosMony = 240;
-
-
-    // Elemants
     private Button Start_Game;
     private Label boosMony;
     private Label TextCountaty;
     private VisualElement WinPage;
+    #endregion
+    // Start is called before the first frame update
+
+
+    // Colcolation Days
+    #region varibels
+    private int totalMony;
+    [SerializeField] int AllDays = 3;
+    public int BoosMony = 240;
+    private int Coins;
+    #endregion
+
+
+    // Elemants
+
 
     private void Awake()
     {
@@ -39,12 +48,16 @@ public class UI_Game : MonoBehaviour
         WinPage = root.Q<VisualElement>("Win");
         TextCountaty = root.Q<Label>("Countaty");
 
+        totalMony = GameManager.instance.ChackKey<int>(SaveKeys.Coins);
+        root.Q<Label>("MonyStartGame").text=totalMony.ToString();
+
 
 
 
         Start_Game.clicked += () =>
          {
              SoundManager.instance.PlayeWithIndex(0);
+             GameManager.instance.is_Play = true;
 
              root.Q<VisualElement>("StartGame").style.display = DisplayStyle.None;
              root.Q<VisualElement>("GamePage").style.display = DisplayStyle.Flex;
@@ -62,8 +75,9 @@ public class UI_Game : MonoBehaviour
 
     public void SetMony(int value)
     {
-        TextCountaty.text = value.ToString();
-        if (value < 40)
+        Coins = value;
+        TextCountaty.text = Coins.ToString();
+        if (value < (BoosMony / 2))
         {
 
             TextCountaty.style.color = Color.red;
@@ -95,24 +109,33 @@ public class UI_Game : MonoBehaviour
 
     public void win()
     {
-        if (WinPage.ClassListContains("AnimtionWindow"))
-        {
-            WinPage.RemoveFromClassList("AnimtionWindow");
-        }
         WinPage.style.display = DisplayStyle.Flex;
         WinPage.AddToClassList("AnimtionWindow");
         ControllePlayer.SetActive(false);
         root.Q<VisualElement>("GamePage").style.display = DisplayStyle.None;
 
-        root.Q<Button>("Next").clicked += () =>
+        Coins -= BoosMony;
+        totalMony += Coins;
+        ES3.Save(SaveKeys.Coins, totalMony);
+        Debug.Log(Coins);
+        int value = 0;
+        int valueUpdate = 0;
+        DOTween.To(() => value, x => value = x, Coins, 1).SetDelay(1f).OnUpdate(() =>
         {
-            SoundManager.instance.PlayeWithIndex(0);
-            // WinPage.style.display = DisplayStyle.None;
-            // root.Q<VisualElement>("StartGame").style.display = DisplayStyle.Flex;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        };
+            valueUpdate = value;
+            root.Q<Label>("WinMony").text = valueUpdate.ToString();
+
+        });
+
+        root.Q<Button>("Next").clicked += () =>
+            {
+                SoundManager.instance.PlayeWithIndex(0);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            };
     }
 
-
-
 }
+
+
+
+

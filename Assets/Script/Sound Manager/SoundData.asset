@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e63b079b9010541b18ec40997ed4e1, type: 3}
   m_Name: SoundData
   m_EditorClassIdentifier: 
-  Sounds: []
+  Sounds:
+  - nameClip: click
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 4fe5ac85c3155413ca46eab2ad0551c4, type: 3}
+    volume: 0.612
+  - nameClip: coll
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 69d6090c980c140fabc1144404f4af75, type: 3}
+    volume: 0.617
+  - nameClip: setprops
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 532fdddeacfcf4322955a33ccc18a41b, type: 3}
+    volume: 0.775

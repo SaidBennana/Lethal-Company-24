@@ -6,7 +6,7 @@
     background-image: url('project://database/Assets/Sprits/bgblure.png?fileID=2800000&guid=09ab7c24357639d4b92ae42f3beb7ea7&type=3#bgblure');
     flex-shrink: 0;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     padding-bottom: 200px;
     visibility: visible;
     display: flex;
