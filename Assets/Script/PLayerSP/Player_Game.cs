@@ -12,7 +12,7 @@ public class Player_Game : MonoBehaviour
 
     // Props manager
     [SerializeField] int MonyFromProps;
-    [SerializeField] List<Transform> Props;// props I get
+    [SerializeField] List<propCall> Props;// props I get
     // Set Props 
     private Transform PointToSet;
 
@@ -20,7 +20,7 @@ public class Player_Game : MonoBehaviour
     {
         if (PointToSet)
         {
-            foreach (Transform prop in Props.ToList())
+            foreach (propCall prop in Props.ToList())
             {
                 prop.transform.position = transform.position;
                 if (prop.gameObject.TryGetComponent(out MeshCollider mesh))
@@ -29,13 +29,13 @@ public class Player_Game : MonoBehaviour
                 }
                 prop.gameObject.SetActive(true);
 
-                prop.DOScale(0, 0.4f);
-                prop.DOMove(PointToSet.position, 0.4f).OnComplete(() =>
+                prop.transform.DOScale(0, 0.4f);
+                prop.transform.DOMove(PointToSet.position, 0.4f).OnComplete(() =>
                 {
                     if (GameManager.instance.is_Play)
                         SoundManager.instance.PlayeWithIndex(2);
                     DOTween.Kill(prop);
-                    Transform IndexProp = prop;
+                    Transform IndexProp = prop.transform;
                     Props.Remove(prop);
 
                     if (prop.TryGetComponent(out propCall propCall))
@@ -48,16 +48,17 @@ public class Player_Game : MonoBehaviour
                                 // you win
                                 if (GameManager.instance.is_Play)
                                     UI_Game.Instance.win();
-                                GameManager.instance.is_Play = false;
                             }
                     }
                     Destroy(IndexProp.gameObject);
                 });
+                UI_Game.Instance.SetPropsImage(Props);
                 yield return new WaitForSeconds(0.5f);
 
             }
-            StopCoroutine(ChackPropsInScnce());
             StartCoroutine(ChackPropsInScnce());
+            UI_Game.Instance.SetPropsImage(Props, true);
+
 
         }
     }
@@ -70,13 +71,22 @@ public class Player_Game : MonoBehaviour
         /// </summary>
         if (other.CompareTag("prop"))
         {
-            if (other.gameObject.TryGetComponent(out MeshCollider mesh))
+            if (Props.Count <= 2)
             {
-                Destroy(mesh);
+                if (other.gameObject.TryGetComponent(out MeshCollider mesh))
+                {
+                    Destroy(mesh);
+                }
+                Props.Add(other.GetComponent<propCall>());
+                other.gameObject.SetActive(false);
+                SoundManager.instance.PlayeWithIndex(1);
+                UI_Game.Instance.SetPropsImage(Props);
             }
-            Props.Add(other.transform);
-            other.gameObject.SetActive(false);
-            SoundManager.instance.PlayeWithIndex(1);
+            else
+            {
+                SoundManager.instance.PlayeWithIndex(3);
+            }
+
         }
         else if (other.CompareTag("setProps"))
         {
@@ -91,10 +101,9 @@ public class Player_Game : MonoBehaviour
     {
         Debug.Log("ChackPropsInScnce 1");
         propCall[] propCall = FindObjectsOfType<propCall>();
-        yield return new WaitForSeconds(6);
-        if (propCall.Length <= 0)
+        yield return new WaitForSeconds(2);
+        if (propCall.Length <= 3)
         {
-            Debug.Log("ChackPropsInScnce 2");
             spwinPlatform[] _spwinPlatform = FindObjectsOfType<spwinPlatform>();
             foreach (var item in _spwinPlatform)
             {

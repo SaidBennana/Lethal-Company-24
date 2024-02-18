@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     #region variables
-    [SerializeField] int roomsCountActive = 3;
+    public int roomsCountActive = 3;
+    public int levelIndex = 1;
     [HideInInspector] public bool is_Play = false;
 
     // map and levels
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Destroy(instance);
+            Destroy(gameObject);
         }
         else
         {
@@ -36,16 +37,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        roomsCountActive = LoadData<int>(SaveKeys.roomsCountActive, roomsCountActive);
+
         for (int i = 0; i < roomsCountActive; i++)
         {
             if (i < Rooms.Length)
                 Rooms[i].gameObject.SetActive(true);
         }
+        levelIndex = LoadData<int>(SaveKeys.LevelIndex, 1);
+
     }
 
 
     /// Checks if a key exists in the save file and returns the value if it does, otherwise returns the default value.
-    public T ChackKey<T>(string key)
+    public T LoadData<T>(string key, T def)
     {
         if (ES3.FileExists("SaveFile.es3"))
         {
@@ -56,7 +61,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        return default;
+        return def;
 
     }
 

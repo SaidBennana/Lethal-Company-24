@@ -17,7 +17,7 @@ MonoBehaviour:
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 4fe5ac85c3155413ca46eab2ad0551c4, type: 3}
     volume: 0.612
-  - nameClip: coll
+  - nameClip: Getprop
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 69d6090c980c140fabc1144404f4af75, type: 3}
     volume: 0.617
@@ -25,3 +25,11 @@ MonoBehaviour:
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 532fdddeacfcf4322955a33ccc18a41b, type: 3}
     volume: 0.775
+  - nameClip: footstep
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 2c9fefe00a4f04846a5998eb055ab38a, type: 3}
+    volume: 0.031
+  - nameClip: PropMax
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: ff1731ff0479d41b999737d10bc558b2, type: 3}
+    volume: 1
